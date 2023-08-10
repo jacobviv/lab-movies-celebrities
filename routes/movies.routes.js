@@ -61,7 +61,13 @@ router.get('/:id/edit', (req, res, next) => {
 
     Movie
         .findById(id)
-        .then(movie => res.render('movies/edit-movie', movie))
+        .then((movie) => {
+            Celebrity
+                .find()
+                .then((celebrities) => {
+                    res.render('movies/edit-movie', { movie, celebrities })
+                })
+        })
         .catch(err => console.log(err))
 })
 
